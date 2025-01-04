@@ -1,5 +1,17 @@
+import { useState } from "react";
+
+import Navbar from "../../components/Navbar/Navbar";
+import SideBar from "../../components/Sidebar/SideBar";
+
 function Home() {
-    return <div className="home">Hello</div>;
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    return (
+        <div className="flex h-screen w-screen overflow-hidden">
+            <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+            <Navbar />
+        </div>
+    );
 }
 
 export default Home;
