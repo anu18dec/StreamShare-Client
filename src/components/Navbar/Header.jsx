@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import ProfileDropdown from "../PorfileDropdown/ProfileDropdown";
+import NotificationDropdown from "../NotificationDropdown/NotificationDropdown";
 
 function Header({ sidebarOpen, setSidebarOpen }) {
     return (
@@ -51,7 +52,8 @@ function Header({ sidebarOpen, setSidebarOpen }) {
                         />
                     </div>
                 </div>
-                <div className="flex-1 flex justify-end items-center px-5">
+                <div className="flex-1 flex justify-end items-center gap-4 px-5">
+                    <NotificationDropdown />
                     <ProfileDropdown />
                 </div>
             </div>

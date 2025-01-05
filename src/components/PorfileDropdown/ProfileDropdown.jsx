@@ -1,58 +1,50 @@
-import { useRef, useState } from "react";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { useState } from "react";
+import PopoverDropdown from "../PopoverDropdown/PopoverDropdown";
 import { Link } from "react-router-dom";
 
 function ProfileDropdown() {
-    const ref = useRef();
     const [dropdownOpen, setdropdownOpen] = useState(false);
 
-    useOnClickOutside(ref, (e) => {
-        if (dropdownOpen) setdropdownOpen((prev) => !prev);
-    });
-
     return (
-        <>
-            <div
-                className="flex items-center gap-2 justify-center hover:cursor-pointer"
-                ref={ref}
-                onClick={() => setdropdownOpen((prev) => !prev)}
-            >
-                <span className="block text-sm font-medium text-black">Anupam Patel</span>
-                <img src="/avatar.png" alt="user image" className="w-12 h-12 rounded-full" />
-                {dropdownOpen ? (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="size-6 w-4"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                    </svg>
-                ) : (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="size-6 w-4"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                    </svg>
-                )}
-            </div>
+        <PopoverDropdown dropdownOpen={dropdownOpen} setdropdownOpen={setdropdownOpen}>
+            <span className="block text-sm font-medium text-black">Anupam Patel</span>
+            <img src="/avatar.png" alt="user image" className="w-12 h-12 rounded-full" />
+            {dropdownOpen ? (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-6 w-4"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                </svg>
+            ) : (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-6 w-4"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+            )}
+
             {dropdownOpen && (
-                <div className={`absolute right-2 top-20.5 flex w-62.5 flex-col rounded-sm bg-white shadow-default `}>
+                <div
+                    className={`absolute right-2 top-20.5 flex w-62.5 flex-col rounded-sm text-gray-400 bg-white shadow-default `}
+                >
                     <ul className="flex flex-col gap-5 px-6 py-7.5 ">
-                        <li>
+                        <li className="hover:text-blue-400">
                             <Link
                                 to="/profile"
-                                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                                className="flex items-center gap-3.5 text-sm font-medium  duration-300 ease-in-out hover:text-primary lg:text-base"
                             >
                                 <svg
-                                    className="fill-current"
+                                    className="fill-current "
                                     width="22"
                                     height="22"
                                     viewBox="0 0 22 22"
@@ -72,9 +64,9 @@ function ProfileDropdown() {
                             </Link>
                         </li>
                     </ul>
-                    <button className="flex items-center gap-3.5 border-t-1 border-t-gray-200 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                    <button className="flex items-center gap-3.5 border-t-1 border-t-gray-200 hover:text-blue-400 px-6 py-4 text-sm text-gray-400 font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
                         <svg
-                            className="fill-current"
+                            className="fill-current "
                             width="22"
                             height="22"
                             viewBox="0 0 22 22"
@@ -94,7 +86,7 @@ function ProfileDropdown() {
                     </button>
                 </div>
             )}
-        </>
+        </PopoverDropdown>
     );
 }
 
