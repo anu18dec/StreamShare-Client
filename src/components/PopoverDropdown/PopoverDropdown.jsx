@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
+import useOnClickOutside from "../../hooks/useOnClickOutside.jsx";
 
 function PopoverDropdown({ children, dropdownOpen, setdropdownOpen }) {
     const ref = useRef();
