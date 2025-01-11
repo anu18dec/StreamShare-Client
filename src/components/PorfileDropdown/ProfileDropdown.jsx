@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PopoverDropdown from "../PopoverDropdown/PopoverDropdown";
+import PopoverDropdown from "../PopoverDropdown/PopoverDropdown.jsx";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
