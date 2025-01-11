@@ -1,13 +1,15 @@
 import { useState } from "react";
 import PopoverDropdown from "../PopoverDropdown/PopoverDropdown";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ProfileDropdown() {
     const [dropdownOpen, setdropdownOpen] = useState(false);
+    const userName = useSelector((state) => state.auth.userName);
 
     return (
         <PopoverDropdown dropdownOpen={dropdownOpen} setdropdownOpen={setdropdownOpen}>
-            <span className="block text-sm font-medium text-black">Anupam Patel</span>
+            <span className="block text-sm font-medium text-black">{userName}</span>
             <img src="/avatar.png" alt="user image" className="w-12 h-12 rounded-full" />
             {dropdownOpen ? (
                 <svg
