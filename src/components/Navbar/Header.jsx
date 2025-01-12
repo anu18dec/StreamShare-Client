@@ -4,7 +4,7 @@ import NotificationDropdown from "../NotificationDropdown/NotificationDropdown";
 
 function Header({ sidebarOpen, setSidebarOpen }) {
     return (
-        <nav className={`w-full h-20 bg-white drop-shadow-sm z-999`}>
+        <header className="sticky w-full h-20 bg-white drop-shadow-sm z-999">
             <div className="w-full h-full flex items-center">
                 <div className="flex-1 flex items-center gap-2 px-5">
                     <div>
@@ -57,7 +57,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
                     <ProfileDropdown />
                 </div>
             </div>
-        </nav>
+        </header>
     );
 }
 

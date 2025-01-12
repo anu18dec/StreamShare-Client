@@ -6,14 +6,16 @@ import { useEffect } from "react";
 import { useSocketContext } from "./context/socketContext.js";
 import io from "socket.io-client";
 import Login from "./routes/Login/Login.jsx";
+import Room from "./routes/Room/Room.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<AuthLayout />}>
                 <Route path="" element={<Home />} />
+                <Route path="room" element={<Room />} />
             </Route>
-            <Route path="/login" element={<Login />} />
         </>
     )
 );
