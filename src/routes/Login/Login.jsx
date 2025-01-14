@@ -25,7 +25,7 @@ function Login() {
 
         dispatch(setUserName(username));
 
-        navigate("/");
+        navigate(-1);
     };
 
     return (

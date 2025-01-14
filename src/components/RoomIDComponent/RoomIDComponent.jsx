@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function RoomIDComponent() {
+function RoomIDComponent({ roomId }) {
     const [isCopied, setIsCopied] = useState(false);
 
     const handleCopy = () => {
@@ -12,7 +12,7 @@ function RoomIDComponent() {
     return (
         <div className="relative">
             <p className="flex items-center gap-2" title="Click here to copy room link">
-                <span className="font-medium text-gray-500">Room ID:</span> 123456
+                <span className="font-medium text-gray-500">Room ID:</span> {roomId}
                 <span className="cursor-pointer" onClick={handleCopy}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

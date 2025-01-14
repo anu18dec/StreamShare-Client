@@ -7,6 +7,8 @@ import { useSocketContext } from "./context/socketContext.js";
 import io from "socket.io-client";
 import Login from "./routes/Login/Login.jsx";
 import Room from "./routes/Room/Room.jsx";
+import { addMember, removeMember, replaceMembers } from "./store/auth/roomSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -14,6 +16,7 @@ const router = createBrowserRouter(
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<AuthLayout />}>
                 <Route path="" element={<Home />} />
+                <Route path="room/:roomId" element={<Room />} />
                 <Route path="room" element={<Room />} />
             </Route>
         </>
@@ -23,17 +26,25 @@ const router = createBrowserRouter(
 function App() {
     const socketState = useSocketContext();
     const fileBuffers = {};
+    const dispatch = useDispatch();
+    const roomDetails = useSelector((state) => state.room);
 
     useEffect(() => {
         const socket = io(import.meta.env.VITE_SERVER_URL);
         socketState.setSocket({ socket: socket });
 
         socket.on("join-notification", (data) => {
-            console.log(data);
+            console.log("From join notification", data);
+            dispatch(replaceMembers(data));
         });
 
         socket.on("left-notification", (data) => {
-            console.log(data);
+            console.log("From left notification", data);
+            dispatch(replaceMembers(data));
+        });
+
+        socket.on("res-members", (data) => {
+            dispatch(replaceMembers(data));
         });
 
         socket.on("receive-chunk", (data) => {
