@@ -54,6 +54,7 @@ function App() {
         });
 
         socket.on("join-notification", (data) => {
+            console.log("Join notification", data);
             data.forEach((member) => {
                 if (member.isOwner && member.socketId === socket.id) {
                     dispatch(setOwner(true));
