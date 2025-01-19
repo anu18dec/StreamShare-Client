@@ -23,6 +23,7 @@ function Room() {
     const [filesList, setFilesList] = useState(new Map());
 
     console.log(roomMem);
+    console.log("Socket state: ", socketState);
 
     // Set state reset and warning
     useEffect(() => {
