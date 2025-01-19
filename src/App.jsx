@@ -31,13 +31,13 @@ const router = createBrowserRouter(
 );
 
 function App() {
-    const socketState = useSocketContext();
+    const socket = useSocketContext().socket.socket;
     const dispatch = useDispatch();
     const chunkSize = 64 * 1024;
 
     useEffect(() => {
-        const socket = io(import.meta.env.VITE_SERVER_URL);
-        socketState.setSocket({ socket: socket });
+        // const socket = io(import.meta.env.VITE_SERVER_URL);
+        // socketState.setSocket({ socket: socket });
 
         socket.on("auth-success", (roomId) => {
             console.log(`Auth successful for room: ${roomId}`);
