@@ -52,6 +52,7 @@ function Room() {
         return () => {
             socketState.emit("leave-room", {
                 roomId: roomId,
+                socketId: sID,
             });
 
             dispatch(deleteRoom());

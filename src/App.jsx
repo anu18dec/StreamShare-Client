@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import receiveChunks from "./utils/receiveChunks.js";
 import { addIncomingFile } from "./store/room/incomingFilesSlice.js";
 import { setErrorState } from "./store/error/errorSlice.js";
+import About from "./routes/About/About.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<AuthLayout IsAuth={true} />}>
                 <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
             </Route>
 
             <Route path="/" element={<AuthLayout IsAuth={false} />}>
