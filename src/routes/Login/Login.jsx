@@ -13,6 +13,8 @@ function Login() {
     const socketState = useSocketContext().socket.socket;
     const errorState = useSelector((state) => state.error.error);
 
+    console.log("Socket connection: ", socketState);
+
     useEffect(() => {
         if (errorState) {
             setError(errorState);
