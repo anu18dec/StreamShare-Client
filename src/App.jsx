@@ -92,10 +92,6 @@ function App() {
 
             receiveChunks(data, chunkSize);
         });
-
-        return () => {
-            socket.disconnect();
-        };
     }, []);
 
     return <RouterProvider router={router} />;

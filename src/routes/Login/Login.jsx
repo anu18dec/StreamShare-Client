@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useSocketContext } from "../../context/socketContext.js";
 import { clearErrorState } from "../../store/error/errorSlice.js";
+import { deleteRoom } from "../../store/room/roomSlice.js";
+import { deleteRoomMembers } from "../../store/room/roomMembersSlice.js";
+import { clearFilesState } from "../../store/room/incomingFilesSlice.js";
 
 function Login() {
     const [error, setError] = useState("");
@@ -16,6 +19,10 @@ function Login() {
     console.log("Socket connection: ", socketState);
 
     useEffect(() => {
+        dispatch(deleteRoom());
+        dispatch(deleteRoomMembers());
+        dispatch(clearFilesState());
+
         if (errorState) {
             setError(errorState);
         }

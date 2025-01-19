@@ -9,6 +9,7 @@ import { deleteRoomMembers } from "../../store/room/roomMembersSlice";
 import RoomMembers from "../../components/RoomMembers/RoomMembers";
 import sendChunks from "../../utils/sendChunks";
 import IncomingFileBar from "../../components/FIleBar/IncomingFileBar";
+import { clearFilesState } from "../../store/room/incomingFilesSlice";
 
 function Room() {
     const socketState = useSocketContext().socket.socket;
@@ -25,28 +26,40 @@ function Room() {
     console.log(roomMem);
     console.log("Socket state: ", socketState.id, socketState);
 
-    // Set state reset and warning
+    // Set state reset
     useEffect(() => {
+        socketState.emit("req-members", roomId);
+
+        const sID = socketState.id;
+
         const handleBeforeUnload = (event) => {
             event.preventDefault();
-            event.returnValue = "Data will be lost if you leave the page, are you sure?";
+            event.returnValue = "";
+            console.log("socket Id before refresh: ", socketState.id);
+        };
+
+        const removeFromAllRooms = () => {
+            console.log("Removing from all rooms:", sID);
+            socketState.emit("leave-room", {
+                roomId: roomId,
+                socketId: sID,
+            });
         };
 
         window.addEventListener("beforeunload", handleBeforeUnload);
-
-        socketState.emit("req-members", roomId);
+        window.addEventListener("unload", removeFromAllRooms);
 
         return () => {
             socketState.emit("leave-room", {
-                username: userName,
                 roomId: roomId,
-                socketId: socketState.id,
             });
-
-            window.removeEventListener("beforeunload", handleBeforeUnload);
 
             dispatch(deleteRoom());
             dispatch(deleteRoomMembers());
+            dispatch(clearFilesState());
+
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            window.removeEventListener("unload", removeFromAllRooms);
         };
     }, []);
 
