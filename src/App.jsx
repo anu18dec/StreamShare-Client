@@ -7,15 +7,22 @@ import { useSocketContext } from "./context/socketContext.js";
 import io from "socket.io-client";
 import Login from "./routes/Login/Login.jsx";
 import Room from "./routes/Room/Room.jsx";
-import { addMember, removeMember, replaceMembers } from "./store/auth/roomSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { setRoom } from "./store/room/roomSlice.js";
+import { replaceMembers, setOwner } from "./store/room/roomMembersSlice.js";
+import { useDispatch } from "react-redux";
+import receiveChunks from "./utils/receiveChunks.js";
+import { addIncomingFile } from "./store/room/incomingFilesSlice.js";
+import { setErrorState } from "./store/error/errorSlice.js";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<AuthLayout />}>
-                <Route path="" element={<Home />} />
+            <Route path="/" element={<AuthLayout IsAuth={true} />}>
+                <Route path="/" element={<Home />} />
+            </Route>
+
+            <Route path="/" element={<AuthLayout IsAuth={false} />}>
                 <Route path="room/:roomId" element={<Room />} />
                 <Route path="room" element={<Room />} />
             </Route>
@@ -25,55 +32,70 @@ const router = createBrowserRouter(
 
 function App() {
     const socketState = useSocketContext();
-    const fileBuffers = {};
     const dispatch = useDispatch();
-    const roomDetails = useSelector((state) => state.room);
+    const chunkSize = 64 * 1024;
 
     useEffect(() => {
         const socket = io(import.meta.env.VITE_SERVER_URL);
         socketState.setSocket({ socket: socket });
 
+        socket.on("auth-success", (roomId) => {
+            console.log(`Auth successful for room: ${roomId}`);
+            dispatch(setRoom(roomId));
+            router.navigate(`/room/${roomId}`);
+        });
+
+        socket.on("auth-failure", (message) => {
+            dispatch(setErrorState(message));
+        });
+
+        socket.on("error", (message) => {
+            dispatch(setErrorState(message));
+        });
+
         socket.on("join-notification", (data) => {
-            console.log("From join notification", data);
+            data.forEach((member) => {
+                if (member.isOwner && member.socketId === socket.id) {
+                    dispatch(setOwner(true));
+                }
+            });
+
             dispatch(replaceMembers(data));
         });
 
         socket.on("left-notification", (data) => {
-            console.log("From left notification", data);
+            console.log("Left notification", data);
             dispatch(replaceMembers(data));
         });
 
         socket.on("res-members", (data) => {
+            data.forEach((member) => {
+                if (member.isOwner && member.socketId === socket.id) {
+                    dispatch(setOwner(true));
+                }
+            });
             dispatch(replaceMembers(data));
         });
 
         socket.on("receive-chunk", (data) => {
-            const { chunk, filename, isLastChunk } = data;
+            dispatch(
+                addIncomingFile({
+                    id: data.id,
+                    filename: data.filename,
+                    size: data.size,
+                    offset: data.offset,
+                    progress: data.offset + chunkSize < data.size ? Math.floor((data.offset / data.size) * 100) : 100,
+                    sender: data.sender,
+                })
+            );
 
-            if (!fileBuffers[filename]) {
-                fileBuffers[filename] = [];
-            }
-
-            fileBuffers[filename].push(new Uint8Array(chunk));
-
-            if (isLastChunk) {
-                // Reconstruct file
-                const blob = new Blob(fileBuffers[filename]);
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = filename;
-                link.click();
-
-                console.log(`File "${filename}" received and downloaded!`);
-            }
+            receiveChunks(data, chunkSize);
         });
 
         return () => {
             socket.disconnect();
         };
     }, []);
-
-    console.log(socketState);
 
     return <RouterProvider router={router} />;
 }

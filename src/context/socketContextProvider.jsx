@@ -1,5 +1,4 @@
 import SocketContext from "./socketContext.js";
-import { io } from "socket.io-client";
 import { useState } from "react";
 
 export const SocketContextProvider = ({ children }) => {

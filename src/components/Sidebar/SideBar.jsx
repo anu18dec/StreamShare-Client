@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 function SideBar({ sidebarOpen, setSidebarOpen }) {
     return (
         <aside
-            className={`absolute left-0 z-9999 top-0 flex flex-col h-screen w-72.5 md:62.5 lg: 72.5  duration-300 overflow-y-hidden ease-linear sm:static sm:translate-x-0 ${
+            className={`absolute left-0 z-9999 top-0 flex flex-col h-screen w-1/2 md:62.5 lg: 72.5  duration-300 overflow-y-hidden ease-linear  ${
                 sidebarOpen ? "translate-x-0" : "-translate-x-full"
             }`}
             style={{ backgroundColor: "#1C2434" }}

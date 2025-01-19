@@ -1,75 +1,31 @@
-import { useState } from "react";
-import { useSocketContext } from "../../context/socketContext";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-    const [roomId, setRoomId] = useState("");
-    const [username, setUsername] = useState("");
-
-    const socket = useSocketContext().socket.socket;
-
-    console.log(socket);
-
-    const handleJoinRoom = () => {
-        socket.emit("join-room", { username, roomId });
-    };
-
-    const handleGetData = () => {
-        setUsername(window.prompt("Enter Username"));
-
-        setRoomId(window.prompt("Enter RoomId"));
-    };
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        // Chunk size (64 KB)
-        const chunkSize = 64 * 1024;
-        let offset = 0;
-
-        const readChunk = () => {
-            const slice = file.slice(offset, offset + chunkSize);
-            const fileReader = new FileReader();
-
-            fileReader.onload = (e) => {
-                socket.emit("send-chunk", {
-                    chunk: e.target.result,
-                    filename: file.name,
-                    roomId: roomId,
-                    isLastChunk: offset + chunkSize >= file.size,
-                });
-
-                offset += chunkSize;
-                if (offset < file.size) {
-                    readChunk(); // Read the next chunk
-                } else {
-                    console.log("File upload complete!");
-                }
-            };
-
-            fileReader.readAsArrayBuffer(slice);
-        };
-
-        readChunk();
-    };
+    const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col items-center justify-center h-full w-full">
-            <button
-                onClick={handleJoinRoom}
-                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            >
-                Join Room
-            </button>
+        <div className="flex h-full items-center justify-center">
+            <div className="mx-10 md:mx-26 lg:mx-36 align-center text-center">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-8">
+                    Welcome to <span className="text-blue-500 text-nowrap">Stream Share</span>
+                </h1>
 
-            <button
-                onClick={handleGetData}
-                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            >
-                Get Data
-            </button>
+                <p className="text-base md:text-lg text-gray-600 mb-6">
+                    <span className="font-semibold text-blue-500">Effortless File Sharing, Made Simple.</span> Stream
+                    Share lets you share files with anyone, anywhere, in real time. No uploads, downloads, or storage
+                    worries—just create a room and start sharing instantly.
+                </p>
 
-            <input type="file" onChange={handleFileChange} />
+                <p className="text-base md:text-lg font-semibold text-gray-700 mb-8">
+                    Ready to experience the simplicity of StreamShare?
+                </p>
+                <button
+                    className="bg-blue-600 text-white text-lg font-semibold py-3 px-6 rounded-lg hover:bg-blue-500 transition duration-300"
+                    onClick={() => navigate("/room")}
+                >
+                    Create Room
+                </button>
+            </div>
         </div>
     );
 }

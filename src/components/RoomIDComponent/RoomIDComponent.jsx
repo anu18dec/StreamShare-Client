@@ -4,7 +4,7 @@ function RoomIDComponent({ roomId }) {
     const [isCopied, setIsCopied] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText("123456");
+        navigator.clipboard.writeText(`${window.location.origin}/room/${roomId}`);
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 3500);
     };
@@ -20,7 +20,7 @@ function RoomIDComponent({ roomId }) {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="size-6 w-5 h-5 text-blue-200 hover:text-blue-500 "
+                        className="size-6 w-5 h-5 text-blue-500 hover:text-blue-600"
                     >
                         <path
                             strokeLinecap="round"
