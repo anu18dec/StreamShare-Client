@@ -33,6 +33,23 @@ const About = () => {
                         create a room and get started.
                     </li>
                 </ul>
+
+                <div className="mt-10 border-t border-gray-300 pt-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">About the Developer</h2>
+                    <p className="text-lg text-gray-700 leading-relaxed text-center">
+                        I am an enthusiastic software engineer who built this application to make file sharing easy and
+                        hassle-free. Feel free to reach out to me at:
+                    </p>
+                    <div className="mt-6 text-center">
+                        <a
+                            href="mailto:dec18anu@gmail.com"
+                            className="text-indigo-600 hover:underline text-lg font-semibold"
+                        >
+                            dec18anu@gmail.com
+                        </a>
+                    </div>
+                </div>
+
                 <div className="mt-8 text-center">
                     <button
                         className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg text-lg font-medium shadow-md hover:bg-blue-500 transition"

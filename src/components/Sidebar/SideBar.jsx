@@ -56,57 +56,7 @@ function SideBar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                             Home
                         </NavLink>
-                        <NavLink
-                            to="/friends"
-                            className={({ isActive }) =>
-                                `${
-                                    isActive ? "bg-gray-600" : ""
-                                }  flex items-center gap-2 p-2 rounded-lg text-white hover:bg-gray-600 hover:text-white`
-                            }
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                className="icon icon-tabler icons-tabler-outline icon-tabler-friends text-white"
-                            >
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M7 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                <path d="M5 22v-5l-1 -1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />
-                                <path d="M17 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />
-                            </svg>
-                            Friends
-                        </NavLink>
-                        <NavLink
-                            to="/history"
-                            className={({ isActive }) =>
-                                `${
-                                    isActive ? "bg-gray-600" : ""
-                                }  flex items-center gap-2 p-2 rounded-lg text-white hover:bg-gray-600 hover:text-white`
-                            }
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="size-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                />
-                            </svg>
-                            History
-                        </NavLink>
+
                         <NavLink
                             to="/room"
                             className={({ isActive }) =>
@@ -117,8 +67,6 @@ function SideBar({ sidebarOpen, setSidebarOpen }) {
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 strokeWidth="1.5"
@@ -128,10 +76,35 @@ function SideBar({ sidebarOpen, setSidebarOpen }) {
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                    d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
                                 />
                             </svg>
                             Room
+                        </NavLink>
+
+                        <NavLink
+                            to="/about"
+                            className={({ isActive }) =>
+                                `${
+                                    isActive ? "bg-gray-600" : ""
+                                }  flex items-center gap-2 p-2 rounded-lg text-white hover:bg-gray-600 hover:text-white`
+                            }
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="size-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                                />
+                            </svg>
+                            About
                         </NavLink>
                     </ul>
                 </nav>
