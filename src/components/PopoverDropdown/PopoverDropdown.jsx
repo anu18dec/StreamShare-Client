@@ -11,7 +11,7 @@ function PopoverDropdown({ children, dropdownOpen, setdropdownOpen }) {
     return (
         <>
             <div
-                className="flex items-center gap-2 justify-center hover:cursor-pointer"
+                className="flex items-center gap-2 justify-center "
                 ref={ref}
                 onClick={() => setdropdownOpen((prev) => !prev)}
             >

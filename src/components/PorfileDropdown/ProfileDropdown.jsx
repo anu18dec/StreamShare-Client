@@ -12,7 +12,7 @@ function ProfileDropdown() {
             <PopoverDropdown dropdownOpen={dropdownOpen} setdropdownOpen={setdropdownOpen}>
                 <span className="block text-sm font-medium text-black">{userName}</span>
                 <img src="/avatar.png" alt="user image" className="w-12 h-12 rounded-full" />
-                {dropdownOpen ? (
+                {/* {dropdownOpen ? (
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -88,7 +88,7 @@ function ProfileDropdown() {
                             Log Out
                         </button>
                     </div>
-                )}
+                )} */}
             </PopoverDropdown>
         )
     );

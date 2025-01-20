@@ -27,7 +27,7 @@ function NotificationDropdown() {
                         />
                     </svg>
                 </div>
-                {dropdownOpen && (
+                {/* {dropdownOpen && (
                     <div
                         className={`absolute right-40 top-20.5 flex w-62.5 flex-col text-gray-400 rounded-sm bg-white shadow-default `}
                     >
@@ -35,7 +35,7 @@ function NotificationDropdown() {
                             <li className="hover:text-blue-400">Test Notification</li>
                         </ul>
                     </div>
-                )}
+                )} */}
             </PopoverDropdown>
         )
     );
